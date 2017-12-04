@@ -1,56 +1,14 @@
 #!/usr/local/bin/python3
 #  ^^^ this is bad practice, DON'T do as I did!
 import cgitb  # debugging
-from time import time as unixTime
 from socket import gethostname as hostname
-import hashlib
-
+from time import time as unixTime
+from htmlify import dispHTML, getHTML
 
 # enable debugging
 cgitb.enable()
 
 loggedIn = False
-
-
-def getHTML(tag, contents=None, **parameters):
-	construct = "<" + tag
-	for paramName, paramContent in parameters.items():
-		construct += " " + paramName + "=" + paramContent
-	if contents is not None:
-		construct += ">" + contents + "</" + tag + ">"
-	else:
-		construct += ">" + "</" + tag + ">"
-	return construct + "\n"
-
-
-def dispHTML(tag, contents=None, **parameters):
-	construct = getHTML(tag, contents=contents, **parameters)
-	print(construct)
-
-
-def authenticate(username, password):
-	username = username.lower()
-	if username == "isaac":
-		realHash = 'ad48ff615bcb753f5bdb7e776859e5dd7d88d12e853160b698f388aa'
-	elif username == "jan":
-		realHash = 'ad48ff615bcb753f5bdb7e776859e5dd7d88d12e853160b698f388aa'
-	elif username == "maxi":
-		realHash = 'ad48ff615bcb753f5bdb7e776859e5dd7d88d12e853160b698f388aa'
-	elif username == "theo":
-		realHash = '4e68823e03c384a1cd6f355bd49ecc7857d81d62ac346396803ea95d'
-	elif username == "admin":
-		realHash = '845a6c95101c955291a777829052ca5a2ec932273c3d125f3c1397bf'
-	elif username == "generic":
-		realHash = '4090d469ca7b3ef7b26c6eb4cd64b24711cb065107c6beaaebf18360'
-	else:
-		return False
-
-	if hashlib.sha224(password.encode()) == realHash:
-		return True
-	else:
-		return False
-
-
 
 print("Content-Type: text/html;charset=utf-8")
 print()
