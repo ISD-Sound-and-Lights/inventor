@@ -10,11 +10,6 @@ cgitb.enable()
 
 loggedIn = False
 
-print("Content-Type: text/html;charset=utf-8")
-print()
-
-# head
-dispHTML("head", contents=getHTML("script", src="https://use.fontawesome.com/344eca865b.js"))
 
 # Title and menu
 title = getHTML("h1", "InventoryControl")  # title
