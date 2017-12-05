@@ -1,8 +1,8 @@
 #!/usr/local/bin/python3
 #  ^^^ this is bad practice, DON'T do as I did!
 import cgitb  # debugging
-import assets.footer as footer
-import assets.header as header
+import footer
+import header
 
 cgitb.enable()  # enable debugging
 loggedIn = False

@@ -1,4 +1,4 @@
-import assets.htmlify as htmlify
+import htmlify
 from socket import gethostname as hostname
 from time import time as unixTime
 
