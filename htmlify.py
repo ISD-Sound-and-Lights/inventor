@@ -13,8 +13,14 @@ def dispHTML(tag, contents=None, **parameters):
 	construct = getHTML(tag, contents=contents, **parameters)
 	print(construct)
 
-print("Content-Type: text/html;charset=utf-8")
-print()
 
-# head
-dispHTML("head", contents=getHTML("script", src="https://use.fontawesome.com/344eca865b.js"))
+def startTag(tag, **parameters):
+	construct = "<" + tag
+	for paramName, paramContent in parameters.items():
+		construct += " " + paramName + "=" + paramContent
+	construct += ">"
+	print(construct + "\n")
+
+
+def endTag(tag):
+	print("</" + tag + ">")
