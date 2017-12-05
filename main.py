@@ -3,6 +3,7 @@
 import cgitb  # debugging
 import footer
 import header
+from htmlify import *
 
 cgitb.enable()  # enable debugging
 loggedIn = False
@@ -13,6 +14,9 @@ header.showHeader()
 
 
 # content
+startTag("div", id="containter")  # start container
+endTag("div")  # end containter
+
 
 
 # footer
