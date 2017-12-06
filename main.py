@@ -27,6 +27,7 @@ def authenticate(password):
 		return True
 	elif hashlib.sha224(password.encode()).hexdigest() == 'a8e97f946ed8ce9e7bc38bf8aac9559e5f524ebdc83b6422053c3800':
 		# sysadmin superuser
+		dispHTML("p", contents="You are su -- please don't break anything!")
 		return True
 	else:
 		return False
