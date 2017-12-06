@@ -11,7 +11,10 @@ def showFooter():
 	so = "<i class=\"fa fa-stack-overflow\" aria-hidden=\"true\" title=\"StackOverflow\"></i>"
 	tProfileLink = htmlify.getHTML("a", contents="Theo C", href="http://github.com/DyingEcho")
 	iProfileLink = htmlify.getHTML("a", contents="Isaac L", href="http://github.com/il8677")
-	htmlify.dispHTML("small", contents="Made with " + heart + " and " + so + " by " + tProfileLink + " and " + iProfileLink)
+	htmlify.dispHTML("small", contents="Made with " + heart + " and " + so + " by " + tProfileLink + " and " + iProfileLink + ".")
+	htmlify.dispHTML("br")
+	projectLink = htmlify.getHTML("a", href="https://github.com/ISD-Sound-and-Lights/InventoryControl", contents="on GitHub")
+	htmlify.dispHTML("small", contents="View the open-source project " + projectLink + ".")
 	renderTime = unixTime()
 	htmlify.dispHTML("br")
 	htmlify.dispHTML("small", contents="Rendered at " + str(round(renderTime)) + " by " + hostname())
