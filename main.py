@@ -10,22 +10,17 @@ import hashlib
 loginForm = cgi.FieldStorage()
 
 
-def authenticate(username, password):
-	username = username.lower()
-	if username == "isaac":
-		realHash = 'ad48ff615bcb753f5bdb7e776859e5dd7d88d12e853160b698f388aa'
-	elif username == "jan":
-		realHash = 'ad48ff615bcb753f5bdb7e776859e5dd7d88d12e853160b698f388aa'
-	elif username == "maxi":
-		realHash = 'ad48ff615bcb753f5bdb7e776859e5dd7d88d12e853160b698f388aa'
-	elif username == "theo":
-		realHash = '4e68823e03c384a1cd6f355bd49ecc7857d81d62ac346396803ea95d'
-	elif username == "admin":
-		realHash = '845a6c95101c955291a777829052ca5a2ec932273c3d125f3c1397bf'
-	elif username == "generic":
-		realHash = '4090d469ca7b3ef7b26c6eb4cd64b24711cb065107c6beaaebf18360'
-	else:
-		return False
+def authenticate(password):
+	passwordFile = open("~/.config/InventoryControl.conf")
+	fileData = passwordFile.read().split("\n")
+	passwordFile.close()
+	counter = 0
+	for line in fileData:
+		fileData[counter] = (line.split(": ")[0], line.split(": ")[1])
+		counter += 1
+	fileData = dict(fileData)
+
+	realHash = fileData["passwordHash"]
 
 	if hashlib.sha224(password.encode()).hexdigest() == realHash:
 		return True
@@ -34,8 +29,14 @@ def authenticate(username, password):
 
 cgitb.enable()  # enable debugging
 try:
-	loggedIn = authenticate(loginForm.getvalue("username"), loginForm.getvalue("password"))
-except AttributeError:  # username or password == None
+	loggedIn = authenticate(loginForm.getvalue("password"))
+except AttributeError:  # password == None
+	loggedIn = False
+except (FileNotFoundError, PermissionError):
+	dispHTML("p", contents="Error in login: Config file missing or invalid perms set!")
+	loggedIn = False
+except IndexError:
+	dispHTML("p", contents="Error in login: Config file incorrectly formatted!")
 	loggedIn = False
 
 
