@@ -19,7 +19,7 @@ header.showHeader()
 startTag("div", id="containter")  # start container
 dispHTML("h3", contents="Login")
 loginForm = cgi.FieldStorage()
-startTag("form", id="login-form", method="GET", action="/cgi-bin/ic/main.py")  # login form
+startTag("form", id="login-form", method="POST", action="/cgi-bin/ic/main.py")  # login form
 dispHTML("p", contents="Password:", newLine=False)
 dispHTML("input", type="password", name="password")
 dispHTML("button", contents="submit")

@@ -18,7 +18,7 @@ header.showHeader()
 startTag("div", id="container")  # start container
 dispHTML("h3", contents="Logout")
 loginForm = cgi.FieldStorage()
-startTag("form", id="login-form", method="GET", action="/cgi-bin/ic/main.py")  # login form
+startTag("form", id="login-form", method="POST", action="/cgi-bin/ic/main.py")  # login form
 dispHTML("button", contents="To log out, click here.")
 endTag("form")  # end login form
 endTag("div")  # end containter
