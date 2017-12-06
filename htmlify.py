@@ -1,4 +1,4 @@
-def getHTML(tag, contents=None, **parameters):
+def getHTML(tag, contents=None, newLine=True, **parameters):
 	construct = "<" + tag
 	for paramName, paramContent in parameters.items():
 		construct += " " + paramName + "=" + paramContent
@@ -6,7 +6,10 @@ def getHTML(tag, contents=None, **parameters):
 		construct += ">" + contents + "</" + tag + ">"
 	else:
 		construct += ">" + "</" + tag + ">"
-	return construct + "\n"
+	if newLine:
+		return construct + "\n"
+	else:
+		return construct
 
 
 def dispHTML(tag, contents=None, **parameters):

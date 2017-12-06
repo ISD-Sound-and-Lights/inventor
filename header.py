@@ -6,12 +6,15 @@ print()
 # head
 dispHTML("head", contents=getHTML("script", src="https://use.fontawesome.com/344eca865b.js"))
 
-def showHeader():
+def showHeader(loggedIn=False):
 	# Title and menu
 	title = getHTML("h1", "InventoryControl")  # title
-	menuItemHome = getHTML("li", contents=getHTML("a", contents="Home", href="/"))  # menu item 1 -- Home
+	menuItemHome = getHTML("li", contents=getHTML("a", contents="Home", href="/cgi-bin/ic/main.py"))  # menu item 1 -- Home
 	menuItemHelp = getHTML("li", contents=getHTML("a", contents="Help", href="/help"))  # menu item 2 -- Help
-	menuItemLogin = getHTML("li", contents=getHTML("a", contents="Login", href="/cgi-bin/ic/login.py"))  # menu item 3 -- Login
+	if not loggedIn:
+		menuItemLogin = getHTML("li", contents=getHTML("a", contents="Login", href="/cgi-bin/ic/login.py"))  # menu item 3 -- Login
+	else:
+		menuItemLogin = getHTML("li", contents=getHTML("a", contents="Logout", href="/cgi-bin/ic/logout.py"))  # menu item 3 -- Logout
 	menu = menuItemHome + menuItemHelp + menuItemLogin  # construct a menu but don't output yet
 	menu = getHTML("div", contents=menu, id="menu")  # put menu into a div id="menu"
 	header = title + menu  # get a header; don't oput yet.
