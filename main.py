@@ -6,19 +6,20 @@ import footer
 import header
 from htmlify import *
 import hashlib
+import os.path
 
 loginForm = cgi.FieldStorage()
 
 
 def authenticate(password):
-	passwordFile = open("~/.config/InventoryControl.conf")
-	fileData = passwordFile.read().split("\n")
-	passwordFile.close()
+	with open(".config/InventoryControl.conf", "r") as passwordFile:
+		fileData = passwordFile.read().split("\n")
 	counter = 0
 	for line in fileData:
-		fileData[counter] = (line.split(": ")[0], line.split(": ")[1])
+		if line.strip(" ") == "": fileData.pop(counter); continue  # skip blank lines
+		fileData[counter] = (line.split(": ")[0], line.split(": ")[1])  # replace with a tuple, split by ': '
 		counter += 1
-	fileData = dict(fileData)
+	fileData = dict(fileData)  # dict() loves tuples where len(tuple) == 2
 
 	realHash = fileData["passwordHash"]
 
@@ -35,8 +36,9 @@ except AttributeError:  # password == None
 except (FileNotFoundError, PermissionError):
 	dispHTML("p", contents="Error in login: Config file missing or invalid perms set!")
 	loggedIn = False
-except IndexError:
+except IndexError as e:
 	dispHTML("p", contents="Error in login: Config file incorrectly formatted!")
+	print(e)
 	loggedIn = False
 
 
