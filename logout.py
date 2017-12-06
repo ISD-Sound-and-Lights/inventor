@@ -3,8 +3,6 @@
 import cgitb  # debugging
 import footer
 import header
-import hashlib
-import cgitb
 from htmlify import *
 import cgi
 

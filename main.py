@@ -6,7 +6,6 @@ import footer
 import header
 from htmlify import *
 import hashlib
-import os.path
 
 loginForm = cgi.FieldStorage()
 
