@@ -6,6 +6,9 @@ import header
 from htmlify import *
 import cgi
 
+print("Content-Type: text/html;charset=utf-8")
+print()
+
 
 cgitb.enable()  # enable debugging
 loggedIn = False

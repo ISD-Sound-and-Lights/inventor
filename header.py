@@ -1,12 +1,12 @@
 from htmlify import *
 
-print("Content-Type: text/html;charset=utf-8")
-print()
-
-# head
-dispHTML("head", contents=getHTML("script", src="https://use.fontawesome.com/344eca865b.js"))
-
 def showHeader(loggedIn=False):
+	# head
+	startTag("head")
+	dispHTML("script", src="https://use.fontawesome.com/344eca865b.js")
+	dispHTML("link", href="/ic-assets/style.css", type="text/css", rel="stylesheet")
+	endTag("head")
+	startTag("body")
 	# Title and menu
 	title = getHTML("h1", "InventoryControl")  # title
 	menuItemHome = getHTML("li", contents=getHTML("a", contents="Home", href="/cgi-bin/ic/main.py"))  # menu item 1 -- Home
