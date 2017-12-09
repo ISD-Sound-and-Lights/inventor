@@ -101,7 +101,7 @@ except IndexError as e:
 try:
 	itemAddName = dataForm.getvalue("item-name")
 	itemAddQuant = dataForm.getvalue("item-quantity")
-	itemAddLoc = dataForm.getvalue("item-location")
+	itemAddLoc = dataForm.getvalue("item-loc")
 	for loc in locations:
 		if loc.name == itemAddLoc:
 			loc.items.append(Item(itemAddName, itemAddQuant))
@@ -142,7 +142,7 @@ if loggedIn:
 	dispHTML("p", contents="Quantity:", newLine=False)
 	dispHTML("input", type="number", name="item-quantity", min="1")
 	dispHTML("br")
-	startTag("select", name="item-location")
+	startTag("select", name="item-loc")
 	dispHTML("option", value="", disabled="disabled", selected="selected", contents="Location")
 	for loc in locations:
 		dispHTML("option", value=loc.name, contents=loc.name)
