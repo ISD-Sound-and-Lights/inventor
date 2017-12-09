@@ -50,10 +50,9 @@ try:
 		locations = pickle.load(dataFile)
 except (FileNotFoundError, PermissionError):
 	locations = []
-except BaseException as e:
+except:
 	print("error")
 	print(traceback.format_exc())
-
 
 
 def authenticate(password):
@@ -87,7 +86,7 @@ except AttributeError:  # password == None
 		c = Cookie.SimpleCookie()
 		c.load(os.environ.get('HTTP_COOKIE'))  # i want cookies!
 		try:
-			cookieLoginData = c['password'].value  #  retrieve the value of the cookie
+			cookieLoginData = c['password'].value  # retrieve the value of the cookie
 			loggedIn = authenticate(cookieLoginData)
 		except KeyError:  # no such value in the cookie jar
 			loggedIn = False
@@ -131,7 +130,7 @@ if loggedIn:
 		dispHTML("b", contents=loc.name)
 		for item in loc.items:
 			dispHTML("p", contents=str(item))
-	endTag("div")  # end item list
+	endTag("div")  # end item list
 	endTag("div")  # end items
 
 	# item controls
@@ -157,7 +156,6 @@ else:
 	dispHTML("p", contents="It was developed by the Sound and Lights programming team, and is open source.")
 	dispHTML("p", contents="Please login to continue.")
 endTag("div")  # end container
-
 
 
 # footer
