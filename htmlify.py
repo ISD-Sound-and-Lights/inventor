@@ -1,7 +1,8 @@
 def getHTML(tag, contents=None, newLine=True, **parameters):
 	construct = "<" + tag
 	for paramName, paramContent in parameters.items():
-		construct += " " + paramName + "=" + paramContent
+		if type(paramContent) == str:
+			construct += " " + paramName + "=\"" + paramContent + "\""
 	if contents is not None:
 		construct += ">" + contents + "</" + tag + ">"
 	else:
@@ -20,7 +21,8 @@ def dispHTML(tag, contents=None, **parameters):
 def startTag(tag, **parameters):
 	construct = "<" + tag
 	for paramName, paramContent in parameters.items():
-		construct += " " + paramName + "=" + paramContent
+		if type(paramContent) == str:
+			construct += " " + paramName + "=\"" + paramContent + "\""
 	construct += ">"
 	print(construct + "\n")
 
