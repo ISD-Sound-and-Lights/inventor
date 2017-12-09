@@ -142,10 +142,10 @@ if loggedIn:
 	dispHTML("p", contents="Quantity:", newLine=False)
 	dispHTML("input", type="number", name="item-quantity", min="1")
 	dispHTML("br")
-	startTag("select")
+	startTag("select", name="item-location")
 	dispHTML("option", value="", disabled="disabled", selected="selected", contents="Location")
 	for loc in locations:
-		dispHTML("option", value="", contents=loc.name, name="item-location")
+		dispHTML("option", value=loc.name, contents=loc.name)
 	endTag("select")
 	dispHTML("button", contents="submit")
 	endTag("form")  #  end login form
