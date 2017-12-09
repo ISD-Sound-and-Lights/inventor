@@ -6,8 +6,54 @@ import footer
 import header
 from htmlify import *
 import hashlib
+import pickle
+from http import cookies as Cookie
+import traceback
+import os
 
-loginForm = cgi.FieldStorage()
+cgitb.enable()  # enable debugging
+
+
+class Client:
+	def __init__(self, name, email="unset", department="unset"):
+		self.name = name
+		self.email = email
+		self.department = department
+
+
+class Item:
+	def __init__(self, name, quantity, owner=Client("unset")):
+		self.name = name
+		self.quantity = quantity
+		self.owner = owner
+		self.currentUser = owner
+
+	def moveLocation(self, newLocationName):
+		for location in locations:
+			if location.name == newLocationName:
+				location.items.append(self)
+
+	def __str__(self):
+		return str(self.quantity) + "x " + self.name
+
+
+class Location:
+	def __init__(self, name):
+		self.name = name
+		self.items = []
+
+
+dataForm = cgi.FieldStorage()
+locations = []
+try:
+	with open(".config/autosave.bin", "rb") as dataFile:
+		locations = pickle.load(dataFile)
+except (FileNotFoundError, PermissionError):
+	locations = []
+except BaseException as e:
+	print("error")
+	print(traceback.format_exc())
+
 
 
 def authenticate(password):
@@ -31,36 +77,96 @@ def authenticate(password):
 	else:
 		return False
 
-cgitb.enable()  # enable debugging
+print("Content-Type: text/html;charset=utf-8\n")
 try:
-	loggedIn = authenticate(loginForm.getvalue("password"))
+	loggedIn = authenticate(dataForm.getvalue("password"))
+	if loggedIn:
+		print('<meta http-equiv="set-cookie" content="password=' + cgi.escape(dataForm.getvalue("password")) + '";>')
 except AttributeError:  # password == None
-	loggedIn = False
+	if 'HTTP_COOKIE' in os.environ:
+		c = Cookie.SimpleCookie()
+		c.load(os.environ.get('HTTP_COOKIE'))  # i want cookies!
+		try:
+			cookieLoginData = c['password'].value  #  retrieve the value of the cookie
+			loggedIn = authenticate(cookieLoginData)
+		except KeyError:  # no such value in the cookie jar
+			loggedIn = False
 except (FileNotFoundError, PermissionError):
 	dispHTML("p", contents="Error in login: Config file missing or invalid perms set!")
 	loggedIn = False
 except IndexError as e:
 	dispHTML("p", contents="Error in login: Config file incorrectly formatted!")
-	print(e)
 	loggedIn = False
 
 
+try:
+	itemAddName = dataForm.getvalue("item-name")
+	itemAddQuant = dataForm.getvalue("item-quantity")
+	itemAddLoc = dataForm.getvalue("item-location")
+	for loc in locations:
+		if loc.name == itemAddLoc:
+			loc.items.append(Item(itemAddName, itemAddQuant))
+except AttributeError:
+	pass  # not trying to add one
+try:
+	locAddName = dataForm.getvalue("loc-name")
+except AttributeError:
+	pass  # not trying to add one
+
 # header
-header.showHeader(loggedIn=loggedIn)
+header.showHeader()
+
+
+# locations.append(Location("ExampleLocation"))
 
 
 # content
 startTag("div", id="containter")  # start container
-endTag("div")  # end containter
 if loggedIn:
-	print("this is in development.")
+	# item list
+	startTag("div", id="items")
+	dispHTML("h3", contents="Items")
+	startTag("div", id="itemlist")
+	for loc in locations:
+		dispHTML("b", contents=loc.name)
+		for item in loc.items:
+			dispHTML("p", contents=str(item))
+	endTag("div")  # end item list
+	endTag("div")  # end items
+
+	# item controls
+	startTag("div", id="add-item")
+	dispHTML("h3", contents="Add item")
+	startTag("form", id="add-item-form", method="POST", action="/cgi-bin/ic/main.py")  # login form
+	dispHTML("p", contents="Name:", newLine=False)
+	dispHTML("input", type="text", name="item-name")
+	dispHTML("p", contents="Quantity:", newLine=False)
+	dispHTML("input", type="number", name="item-quantity", min="1")
+	dispHTML("br")
+	startTag("select")
+	dispHTML("option", value="", disabled="disabled", selected="selected", contents="Location")
+	for loc in locations:
+		dispHTML("option", value="", contents=loc.name, name="item-location")
+	endTag("select")
+	dispHTML("button", contents="submit")
+	endTag("form")  #  end login form
+	endTag("div")  # end div id=add-item
 else:
 	dispHTML("h3", contents="Welcome to InventoryControl!")
 	dispHTML("p", contents="IC is Sound and Lights' own inventory management system.")
 	dispHTML("p", contents="It was developed by the Sound and Lights programming team, and is open source.")
 	dispHTML("p", contents="Please login to continue.")
+endTag("div")  # end container
 
 
 
 # footer
 footer.showFooter()
+
+
+try:
+	dataFile = open(".config/autosave.bin", "wb")
+	pickle.dump(locations, dataFile)
+	dataFile.close()
+except (FileNotFoundError, PermissionError):
+	dispHTML("p", contents="Error in save:  Save file incorrectly configured!")
