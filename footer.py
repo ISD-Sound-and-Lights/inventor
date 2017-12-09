@@ -18,3 +18,5 @@ def showFooter():
 	renderTime = unixTime()
 	htmlify.dispHTML("br")
 	htmlify.dispHTML("small", contents="Rendered at " + str(round(renderTime)) + " by " + hostname())
+	htmlify.endTag("body")
+	htmlify.endTag("html")
