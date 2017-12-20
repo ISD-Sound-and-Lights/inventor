@@ -113,10 +113,4 @@ endTag("div")  # end container
 # footer
 footer.showFooter()
 
-
-try:
-	dataFile = open(".config/autosave.bin", "wb")
-	pickle.dump(locations, dataFile)
-	dataFile.close()
-except (FileNotFoundError, PermissionError):
-	dispHTML("p", contents="Error in save:  Save file incorrectly configured!")
+dataDump(locations)

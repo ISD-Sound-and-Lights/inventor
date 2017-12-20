@@ -46,3 +46,14 @@ def authenticate(password):
 		return True
 	else:
 		return False
+
+
+def dataDump(locations):
+	import pickle
+	import htmlify
+	try:
+		dataFile = open(".config/autosave.bin", "wb")
+		pickle.dump(locations, dataFile)
+		dataFile.close()
+	except (FileNotFoundError, PermissionError):
+		htmlify.dispHTML("p", contents="Error in save:  Save file incorrectly configured!")
