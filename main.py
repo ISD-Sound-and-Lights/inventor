@@ -116,7 +116,7 @@ except AttributeError:
 header.showHeader()
 
 
-# locations.append(Location("ExampleLocation"))
+#locations.append(Location("ExampleLocation"))
 
 
 # content
@@ -129,7 +129,8 @@ if loggedIn:
 	for loc in locations:
 		dispHTML("b", contents=loc.name)
 		for item in loc.items:
-			dispHTML("p", contents=str(item))
+			startTag("p")
+			dispHTML("a", contents=str(item), href="/cgi-bin/ic/analyseItem.py?location=" + loc.name + "&item=" + item.name)
 	endTag("div")  # end item list
 	endTag("div")  # end items
 
