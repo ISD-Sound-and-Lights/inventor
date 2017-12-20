@@ -95,21 +95,23 @@ for l in locations:
 		location = l
 	else:
 		missCounter += 1
-if missCounter >= len(locations) - 1:
+if missCounter >= len(locations):
 	dispHTML("h3", contents="Error")
 	dispHTML("p", contents="Location '" + str(locationName) + "' not found.")
 	itemFound = False
 else:
 	missCounter = 0
 	itemName = localData.getvalue("item")
+	itemFound = False
 	for i in location.items:
 		if i.name == itemName:
 			item = i
 			itemFound = True
-	if missCounter >= len(location.items) - 1:
+		else:
+			missCounter += 1
+	if missCounter >= len(location.items):
 		dispHTML("h3", contents="Error")
 		dispHTML("p", contents="Item '" + str(itemName) + "' not found.")
-		itemFound = False
 
 if loggedIn and itemFound:
 	dispHTML("h3", contents=item.name)
