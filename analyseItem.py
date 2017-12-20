@@ -16,27 +16,6 @@ print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()
 
 
-def authenticate(password):
-	with open(".config/InventoryControl.conf", "r") as passwordFile:
-		fileData = passwordFile.read().split("\n")
-	counter = 0
-	for line in fileData:
-		if line.strip(" ") == "": fileData.pop(counter); continue  # skip blank lines
-		fileData[counter] = (line.split(": ")[0], line.split(": ")[1])  # replace with a tuple, split by ': '
-		counter += 1
-	fileData = dict(fileData)  # dict() loves tuples where len(tuple) == 2
-
-	realHash = fileData["passwordHash"]
-
-	if hashlib.sha224(password.encode()).hexdigest() == realHash:
-		return True
-	elif hashlib.sha224(password.encode()).hexdigest() == 'a8e97f946ed8ce9e7bc38bf8aac9559e5f524ebdc83b6422053c3800':
-		# sysadmin superuser
-		dispHTML("p", contents="You are su -- please don't break anything!")
-		return True
-	else:
-		return False
-
 try:
 	with open(".config/autosave.bin", "rb") as dataFile:
 		locations = pickle.load(dataFile)
