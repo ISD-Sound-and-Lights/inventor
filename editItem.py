@@ -115,14 +115,27 @@ else:
 
 if loggedIn and itemFound:
 	dispHTML("h3", contents=item.name)
-	print("<p><b>Quantity: </b> " + str(item.quantity) + "</p>")
-	print("<p><b>Location: </b> " + location.name + "</p>")
-	print("<p><b>Owner:    </b> " + item.owner.name + " (" + item.owner.email + ")")
-	print("<p><b>Current user: </b>" + item.currentUser.name + " (" + item.currentUser.email + ")")
-	dispHTML("br")
-	startTag("p")
-	dispHTML("a", contents="Edit", href="/cgi-bin/ic/editItem.py?location=" + locationName + "&item=" + itemName)
-	endTag("p")
+	startTag("form", method="post")
+	print("<b>Name: </b> " + "<input type=\"text\" name=\"setName\"" + "value=\"" + str(item.name) + "\"")
+	print("<b>Quantity: </b> " + "<input type=\"text\" name=\"setQuant\"" + "value=\"" + str(item.quantity) + "\"")
+	startTag("select", name="setLoc")
+	dispHTML("option", value="", disabled="disabled", selected="selected", contents="Location")
+	for loc in locations:
+		dispHTML("option", value=loc.name, contents=loc.name)
+	endTag("select")
+	startTag("select", name="setOwner")
+	dispHTML("option", value="", disabled="disabled", selected="selected", contents="Owner")
+	users = []  # TEMPORARY
+	for user in users:
+		dispHTML("option", value=user.name, contents=user.name)
+	endTag("select")
+	startTag("select", name="setCurrentUser")
+	dispHTML("option", value="", disabled="disabled", selected="selected", contents="Current User")
+	for user in users:
+		dispHTML("option", value=user.name, contents=user.name)
+	endTag("select")
+	dispHTML("input", type="submit", value="Save changes")
+	endTag("form")
 elif not loggedIn:
 	dispHTML("h3", contents="Please login")
 	dispHTML("p", contents="This area of the site requires you to authenticate.")
