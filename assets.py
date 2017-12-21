@@ -71,3 +71,17 @@ def checkCookieLogin():
 			return authenticate(cookieLoginData)
 		except KeyError:  # no such value in the cookie jar
 			return False
+
+
+def getLocations():
+	import traceback
+	import pickle
+	try:
+		with open(".config/autosave.bin", "rb") as dataFile:
+			return pickle.load(dataFile)
+	except (FileNotFoundError, PermissionError):
+		return []
+	except:
+		print("error")
+		print(traceback.format_exc())
+		return []

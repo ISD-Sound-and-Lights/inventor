@@ -18,15 +18,7 @@ cgitb.enable()  # enable debugging
 
 
 dataForm = cgi.FieldStorage()
-locations = []
-try:
-	with open(".config/autosave.bin", "rb") as dataFile:
-		locations = pickle.load(dataFile)
-except (FileNotFoundError, PermissionError):
-	locations = []
-except:
-	print("error")
-	print(traceback.format_exc())
+locations = getLocations()
 
 try:
 	loggedIn = authenticate(dataForm.getvalue("password"))

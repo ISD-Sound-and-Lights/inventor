@@ -16,15 +16,7 @@ print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()
 
 
-try:
-	with open(".config/autosave.bin", "rb") as dataFile:
-		locations = pickle.load(dataFile)
-except (FileNotFoundError, PermissionError):
-	locations = []
-except:
-	locations = []
-	print("error")
-	print(traceback.format_exc())
+locations = getLocations()
 loggedIn = checkCookieLogin()
 localData = cgi.FieldStorage()
 
