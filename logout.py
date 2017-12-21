@@ -4,13 +4,10 @@ import cgitb  # debugging
 import footer
 import header
 from htmlify import *
-import cgi
 
 
 print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()  # enable debugging
-
-# header
 header.showHeader()
 
 # content

@@ -5,18 +5,11 @@ import cgi
 import footer
 import header
 from htmlify import *
-import hashlib
-import pickle
-from http import cookies as Cookie
-import traceback
-import os
 from assets import *
 
 
 print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()  # enable debugging
-
-
 dataForm = cgi.FieldStorage()
 locations = getLocations()
 

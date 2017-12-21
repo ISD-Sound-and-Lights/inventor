@@ -5,11 +5,6 @@ import footer
 from htmlify import *
 import cgi
 import cgitb
-import os
-import traceback
-import http.cookies as Cookie
-import hashlib
-import pickle
 from assets import *
 
 print("Content-Type: text/html;charset=utf-8\n")
@@ -19,7 +14,6 @@ cgitb.enable()
 locations = getLocations()
 loggedIn = checkCookieLogin()
 localData = cgi.FieldStorage()
-
 header.showHeader(loggedIn=loggedIn)
 
 
