@@ -25,16 +25,7 @@ except:
 	locations = []
 	print("error")
 	print(traceback.format_exc())
-if 'HTTP_COOKIE' in os.environ:
-	c = Cookie.SimpleCookie()
-	c.load(os.environ.get('HTTP_COOKIE'))  # i want cookies!
-	try:
-		cookieLoginData = c['password'].value  # retrieve the value of the cookie
-		loggedIn = authenticate(cookieLoginData)
-	except KeyError:  # no such value in the cookie jar
-		loggedIn = False
-else:
-	loggedIn = False
+loggedIn = checkCookieLogin()
 localData = cgi.FieldStorage()
 
 header.showHeader(loggedIn=loggedIn)
