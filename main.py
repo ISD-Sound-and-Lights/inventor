@@ -12,6 +12,8 @@ import traceback
 import os
 from assets import *
 
+
+print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()  # enable debugging
 
 
@@ -26,8 +28,6 @@ except:
 	print("error")
 	print(traceback.format_exc())
 
-
-print("Content-Type: text/html;charset=utf-8\n")
 try:
 	loggedIn = authenticate(dataForm.getvalue("password"))
 	if loggedIn:
@@ -57,7 +57,7 @@ except AttributeError:
 	pass  # not trying to add one
 
 # header
-header.showHeader()
+header.showHeader(loggedIn)
 
 
 #locations.append(Location("ExampleLocation"))
