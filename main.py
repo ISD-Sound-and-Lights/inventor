@@ -62,7 +62,15 @@ if loggedIn:
 		dispHTML("b", contents=loc.name)
 		for item in loc.items:
 			startTag("p")
-			dispHTML("a", contents=str(item), href="/cgi-bin/ic/analyseItem.py?location=" + loc.name + "&item=" + item.name)
+			print("<span class=\"itemListIndent\"/>")
+			dispHTML("a", contents="<i class=\"fa fa-trash\" aria-hidden=\"true\"></i>",
+					 href="/cgi-bin/ic/removeItem.py?location=" + loc.name + "&item=" + item.name)
+			dispHTML("a", contents="<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>",
+					 href="/cgi-bin/ic/editItem.py?location=" + loc.name + "&item=" + item.name)
+			dispHTML("a", contents="<i class=\"fa fa-info\" aria-hidden=\"true\"></i>",
+					 href="/cgi-bin/ic/analyseItem.py?location=" + loc.name + "&item=" + item.name)
+			print("<span class=\"itemListSeparator\"> " + str(item))
+			endTag("p")
 	endTag("div")  # end item list
 	endTag("div")  # end items
 
