@@ -33,14 +33,7 @@ try:
 	if loggedIn:
 		print('<meta http-equiv="set-cookie" content="password=' + cgi.escape(dataForm.getvalue("password")) + '";>')
 except AttributeError:  # password == None
-	if 'HTTP_COOKIE' in os.environ:
-		c = Cookie.SimpleCookie()
-		c.load(os.environ.get('HTTP_COOKIE'))  # i want cookies!
-		try:
-			cookieLoginData = c['password'].value  # retrieve the value of the cookie
-			loggedIn = authenticate(cookieLoginData)
-		except KeyError:  # no such value in the cookie jar
-			loggedIn = False
+	loggedIn = checkCookieLogin()
 except (FileNotFoundError, PermissionError):
 	dispHTML("p", contents="Error in login: Config file missing or invalid perms set!")
 	loggedIn = False

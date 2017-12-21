@@ -57,3 +57,17 @@ def dataDump(locations):
 		dataFile.close()
 	except (FileNotFoundError, PermissionError):
 		htmlify.dispHTML("p", contents="Error in save:  Save file incorrectly configured!")
+
+
+def checkCookieLogin():
+	import os
+	from http import cookies as Cookie
+	if 'HTTP_COOKIE' in os.environ:
+		c = Cookie.SimpleCookie()
+		c.load(os.environ.get('HTTP_COOKIE'))  # i want cookies!
+		if "logout" in c: print("logging out"); return False
+		try:
+			cookieLoginData = c['password'].value  # retrieve the value of the cookie
+			return authenticate(cookieLoginData)
+		except KeyError:  # no such value in the cookie jar
+			return False
