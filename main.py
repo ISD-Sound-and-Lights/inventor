@@ -49,6 +49,9 @@ try:
 	for loc in locations:
 		if loc.name == itemAddLoc:
 			loc.items.append(Item(itemAddName, itemAddQuant))
+			dataDump(locations)
+			print("<meta http-equiv=\"refresh\" content=\"0;url=/cgi-bin/ic/main.py\">")
+			# we reload so that if the user reloads it doesn't add another item
 except AttributeError:
 	pass  # not trying to add one
 try:
