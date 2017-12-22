@@ -7,16 +7,17 @@ from htmlify import *
 
 
 print("Content-Type: text/html;charset=utf-8\n")
+print('<meta http-equiv="set-cookie" content="password="";>')
 cgitb.enable()  # enable debugging
 header.showHeader()
 
 # content
 startTag("div", id="container")  # start container
 dispHTML("h3", contents="Logout")
-startTag("form", id="login-form", method="POST", action="/cgi-bin/ic/main.py")  # login form
-dispHTML("button", contents="To log out, click here.", name="logout")
-endTag("form")  # end login form
-endTag("div")  # end containter
+dispHTML("p", contents="You have been logged out.")
+startTag("p")
+dispHTML("a", href="/cgi-bin/ic/main.py", contents="Return Home")
+endTag("div")  # end container
 
 
 # footer
