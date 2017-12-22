@@ -58,6 +58,13 @@ if loggedIn and itemFound:
 		startTag("p")
 		dispHTML("a", href="/cgi-bin/ic/main.py", contents="Go Home")
 		endTag("p")
+	elif "no" in localData:
+		dispHTML("h3", contents="Cancelled")
+		dispHTML("p", contents="If you are not redirected within a few seconds, please click here:")
+		startTag("p")
+		dispHTML("a", href="/cgi-bin/ic/main.py", contents="Go Home")
+		endTag("p")
+		print("<meta http-equiv=\"refresh\" content=\"0;url=/cgi-bin/ic/main.py\">")  # go home
 	else:
 		dispHTML("h3", contents="Please confirm")
 		dispHTML("p", contents="Are you sure you want to delete " + item.name + "?")
