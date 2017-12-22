@@ -8,7 +8,7 @@ def showHeader(loggedIn=False):
 	endTag("head")
 	startTag("body")
 	# Title and menu
-	title = getHTML("h1", "InventoryControl")  # title
+	title = getHTML("h1", "inventor")  # title
 	menuItemHome = getHTML("li", contents=getHTML("a", contents="Home", href="/cgi-bin/ic/main.py"))  # menu item 1 -- Home
 	menuItemHelp = getHTML("li", contents=getHTML("a", contents="Help", href="/help"))  # menu item 2 -- Help
 	if not loggedIn:
