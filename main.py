@@ -48,7 +48,7 @@ except AttributeError:
 header.showHeader(loggedIn)
 
 
-if len(locations) == 0: locations.append(Location("Base Location")); locations.append(Location("Second Location"))
+if len(locations) == 0: locations.append(Location("First Location")); locations.append(Location("Second Location"))
 
 
 # content
@@ -71,6 +71,7 @@ if loggedIn:
 					 href="/cgi-bin/ic/analyseItem.py?location=" + loc.name + "&item=" + item.name)
 			print("<span class=\"itemListSeparator\"> " + str(item))
 			endTag("p")
+		dispHTML("br")
 	endTag("div")  # end item list
 	endTag("div")  # end items
 
