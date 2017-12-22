@@ -27,28 +27,33 @@ except IndexError as e:
 	loggedIn = False
 
 
-try:
-	itemAddName = dataForm.getvalue("item-name")
-	itemAddQuant = dataForm.getvalue("item-quantity")
-	itemAddLoc = dataForm.getvalue("item-loc")
+# Add any items the user wanted last load
+itemAddName = dataForm.getvalue("item-name")
+itemAddQuant = dataForm.getvalue("item-quantity")
+itemAddLoc = dataForm.getvalue("item-loc")
+for loc in locations:
+	if loc.name == itemAddLoc:
+		loc.items.append(Item(itemAddName, itemAddQuant))
+		dataDump(locations)
+		print("<meta http-equiv=\"refresh\" content=\"0;url=/cgi-bin/ic/main.py\">")
+		# we reload so that if the user reloads it doesn't add another item
+
+# And locations
+locAddName = dataForm.getvalue("loc-name")
+if locAddName is not None:
+	addLocError = False
 	for loc in locations:
-		if loc.name == itemAddLoc:
-			loc.items.append(Item(itemAddName, itemAddQuant))
-			dataDump(locations)
-			print("<meta http-equiv=\"refresh\" content=\"0;url=/cgi-bin/ic/main.py\">")
-			# we reload so that if the user reloads it doesn't add another item
-except AttributeError:
-	pass  # not trying to add one
-try:
-	locAddName = dataForm.getvalue("loc-name")
-except AttributeError:
-	pass  # not trying to add one
+		if loc.name == locAddName:
+			dispHTML("h3", contents="Error")
+			dispHTML("p", contents="You can't add a location with a name the same as one that exists already")
+			addLocError = True
+	if not addLocError:
+		locations.append(Location(locAddName))
+		print("<meta http-equiv=\"refresh\" content=\"0;url=/cgi-bin/ic/main.py\">")
+		# we reload so that if the user reloads it doesn't add another item
 
 # header
 header.showHeader(loggedIn)
-
-
-if len(locations) == 0: locations.append(Location("First Location")); locations.append(Location("Second Location"))
 
 
 # content
