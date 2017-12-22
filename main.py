@@ -92,6 +92,16 @@ if loggedIn:
 	dispHTML("button", contents="submit")
 	endTag("form")  #  end login form
 	endTag("div")  # end div id=add-item
+
+	# item controls
+	startTag("div", id="add-loc")
+	dispHTML("h3", contents="Add location")
+	startTag("form", id="add-loc-form", method="POST", action="/cgi-bin/ic/main.py")  # login form
+	dispHTML("p", contents="Name:", newLine=False)
+	dispHTML("input", type="text", name="loc-name")
+	dispHTML("button", contents="submit")
+	endTag("form")  #  end login form
+	endTag("div")  # end div id=add-item
 else:
 	dispHTML("h3", contents="Welcome to InventoryControl!")
 	dispHTML("p", contents="IC is Sound and Lights' own inventory management system.")
