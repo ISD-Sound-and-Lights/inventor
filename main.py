@@ -50,7 +50,7 @@ if locAddName is not None:
 	if not addLocError:
 		locations.append(Location(locAddName))
 		print("<meta http-equiv=\"refresh\" content=\"0;url=/cgi-bin/ic/main.py\">")
-		# we reload so that if the user reloads it doesn't add another item
+		# we reload so that if the user reloads it doesn't add another location
 
 # header
 header.showHeader(loggedIn)
