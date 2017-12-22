@@ -1,5 +1,7 @@
 # Inventor
-Inventory control for humans.
+### Inventory control for humans.
+
+---
 
 Inventor is an inventory control and management system for small teams. It focuses on ease of use and simplicity. It is easy to set up and run.
 
