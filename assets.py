@@ -12,13 +12,11 @@ class Item:
 		self.owner = owner
 		self.currentUser = owner
 
-	def moveLocation(self, newLocationName):
-		for location in locations:
-			if location.name == newLocationName:
-				location.items.append(self)
-
 	def __str__(self):
 		return str(self.quantity) + "x " + self.name
+
+	def __eq__(self, other):
+		return self.name == other.name
 
 
 class Location:

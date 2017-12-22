@@ -48,7 +48,7 @@ except AttributeError:
 header.showHeader(loggedIn)
 
 
-if len(locations) == 0: locations.append(Location("Base Location"))
+if len(locations) == 0: locations.append(Location("Base Location")); locations.append(Location("Second Location"))
 
 
 # content

@@ -44,12 +44,12 @@ else:
 
 if loggedIn and itemFound:
 	dispHTML("h3", contents=item.name)
-	startTag("form", method="post")
+	startTag("form", method="post", action="/cgi-bin/ic/analyseItem.py?location=" + location.name + "&item=" + item.name)
 	dispHTML("b", contents="Name:")
 	dispHTML("input", type="text", name="setName", value=item.name)
 	dispHTML("br")
 	dispHTML("b", contents="Quantity:")
-	dispHTML("input", type="text", name="setQuant", value=str(item.quantity))
+	dispHTML("input", type="number", name="setQuant", value=str(item.quantity))
 	dispHTML("br")
 	dispHTML("b", contents="Location:")
 	startTag("select", name="setLoc")
