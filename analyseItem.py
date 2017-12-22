@@ -62,7 +62,7 @@ if loggedIn and itemFound:
 		for i in location.items:
 			if i == item:
 				del location.items[counter]
-		counter += 1
+			counter += 1
 
 	dispHTML("h3", contents=item.name)
 	print("<p><b>Quantity: </b> " + str(item.quantity) + "</p>")
