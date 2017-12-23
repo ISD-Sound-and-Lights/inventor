@@ -64,7 +64,11 @@ if loggedIn:
 	dispHTML("h3", contents="Items")
 	startTag("div", id="itemlist")
 	for loc in locations:
-		dispHTML("b", contents=loc.name)
+		startTag("a", href="analyseLocation.py?location=" + loc.name)
+		itemNameDisplay = "<i class=\"fa fa-info\"></i></a>"
+		itemNameDisplay += "<span class=\"locListSeparator\" /> "
+		itemNameDisplay += getHTML("b", contents=loc.name)
+		print(itemNameDisplay)
 		for item in loc.items:
 			startTag("p")
 			print("<span class=\"itemListIndent\"/>")
@@ -74,7 +78,7 @@ if loggedIn:
 					 href="/cgi-bin/ic/editItem.py?location=" + loc.name + "&item=" + item.name)
 			dispHTML("a", contents="<i class=\"fa fa-info\" aria-hidden=\"true\"></i>",
 					 href="/cgi-bin/ic/analyseItem.py?location=" + loc.name + "&item=" + item.name)
-			print("<span class=\"itemListSeparator\"> " + str(item))
+			print("<span class=\"itemListSeparator\" /> " + str(item))
 			endTag("p")
 		dispHTML("br")
 	endTag("div")  # end item list
