@@ -80,7 +80,7 @@ if loggedIn:
 					 href="/cgi-bin/ic/analyseItem.py?location=" + loc.name + "&item=" + item.name)
 			print("<span class=\"itemListSeparator\" /> " + str(item))
 			endTag("p")
-		dispHTML("br")
+		if len(loc.items) == 0: dispHTML("br")
 	endTag("div")  # end item list
 	endTag("div")  # end items
 
