@@ -1,11 +1,13 @@
 #!/usr/local/bin/python3
 #  ^^^ this is bad practice, DON'T do as I did!
-import header
-import footer
-from htmlify import *
 import cgi
 import cgitb
+
+import assets
+import footer
+import header
 from assets import *
+from assets import endTag, startTag
 
 print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()
@@ -14,7 +16,7 @@ cgitb.enable()
 locations = getLocations()
 loggedIn = checkCookieLogin()
 localData = cgi.FieldStorage()
-header.showHeader(loggedIn=loggedIn)
+assets.showHeader(loggedIn=loggedIn)
 
 
 locationName = localData.getvalue("location")
@@ -44,7 +46,7 @@ else:
 
 if loggedIn and itemFound:
 	dispHTML("h3", contents=item.name)
-	startTag("form", method="post", action="/cgi-bin/ic/analyseItem.py?location=" + location.name + "&item=" + item.name)
+	startTag("form", method="post", action="analyseItem.py?location=" + location.name + "&item=" + item.name)
 	dispHTML("b", contents="Name:")
 	dispHTML("input", type="text", name="setName", value=item.name)
 	dispHTML("br")
@@ -84,4 +86,4 @@ elif not loggedIn:
 	you will be logged in.")
 
 
-footer.showFooter()
+assets.showFooter()

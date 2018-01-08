@@ -1,12 +1,13 @@
 #!/usr/local/bin/python3
 #  ^^^ this is bad practice, DON'T do as I did!
-import cgitb  # debugging
 import cgi
+import cgitb  # debugging
+
+import assets
 import footer
 import header
-from htmlify import *
 from assets import *
-
+from assets import dispHTML, endTag, startTag
 
 print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()  # enable debugging
@@ -35,7 +36,7 @@ for loc in locations:
 	if loc.name == itemAddLoc:
 		loc.items.append(Item(itemAddName, itemAddQuant))
 		dataDump(locations)
-		print("<meta http-equiv=\"refresh\" content=\"0;url=/cgi-bin/ic/main.py\">")
+		print("<meta http-equiv=\"refresh\" content=\"0;url=main.py\">")
 		# we reload so that if the user reloads it doesn't add another item
 
 # And locations
@@ -49,11 +50,11 @@ if locAddName is not None:
 			addLocError = True
 	if not addLocError:
 		locations.append(Location(locAddName))
-		print("<meta http-equiv=\"refresh\" content=\"0;url=/cgi-bin/ic/main.py\">")
+		print("<meta http-equiv=\"refresh\" content=\"0;url=main.py\">")
 		# we reload so that if the user reloads it doesn't add another location
 
 # header
-header.showHeader(loggedIn)
+assets.showHeader(loggedIn)
 
 
 # content
@@ -64,8 +65,17 @@ if loggedIn:
 	dispHTML("h3", contents="Items")
 	startTag("div", id="itemlist")
 	for loc in locations:
-		startTag("a", href="analyseLocation.py?location=" + loc.name)
-		itemNameDisplay = "<i class=\"fa fa-info\"></i></a>"
+		itemNameDisplay = "<div class='dropdown'>"
+		itemNameDisplay += "<i class=\"fa fa-info\"></i>"
+		itemNameDisplay += "<div class='dropdown-content'>"
+		itemNameDisplay += "<a href=\"removeLocation.py?location=" + loc.name + "\">" \
+						   "<i class=\"fa fa-fw fa-trash\" aria-hidden=\"true\"> </i>Delete</a><br />"
+		itemNameDisplay += "<a href=\"editLocation.py?location=" + loc.name + "\">" \
+						   "<i class=\"fa fa-fw fa-pencil\" aria-hidden=\"true\"> </i>Edit</a><br />"
+		itemNameDisplay += "<a href=\"analyseLocation.py?location=" + loc.name + "\">" \
+						   "<i class=\"fa fa-fw fa-info\" aria-hidden=\"true\"> </i>Info</a><br />"
+		itemNameDisplay += "</div>"
+		itemNameDisplay += "</div>"
 		itemNameDisplay += "<span class=\"locListSeparator\" /> "
 		itemNameDisplay += getHTML("b", contents=loc.name)
 		print(itemNameDisplay)
@@ -73,11 +83,11 @@ if loggedIn:
 			startTag("p")
 			print("<span class=\"itemListIndent\"/>")
 			dispHTML("a", contents="<i class=\"fa fa-trash\" aria-hidden=\"true\"></i>",
-					 href="/cgi-bin/ic/removeItem.py?location=" + loc.name + "&item=" + item.name)
+					 href="removeItem.py?location=" + loc.name + "&item=" + item.name)
 			dispHTML("a", contents="<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>",
-					 href="/cgi-bin/ic/editItem.py?location=" + loc.name + "&item=" + item.name)
+					 href="editItem.py?location=" + loc.name + "&item=" + item.name)
 			dispHTML("a", contents="<i class=\"fa fa-info\" aria-hidden=\"true\"></i>",
-					 href="/cgi-bin/ic/analyseItem.py?location=" + loc.name + "&item=" + item.name)
+					 href="analyseItem.py?location=" + loc.name + "&item=" + item.name)
 			print("<span class=\"itemListSeparator\" /> " + str(item))
 			endTag("p")
 		if len(loc.items) == 0: dispHTML("br")
@@ -87,7 +97,7 @@ if loggedIn:
 	# item controls
 	startTag("div", id="add-item")
 	dispHTML("h3", contents="Add item")
-	startTag("form", id="add-item-form", method="POST", action="/cgi-bin/ic/main.py")  # login form
+	startTag("form", id="add-item-form", method="POST", action="main.py")  # login form
 	dispHTML("p", contents="Name:", newLine=False)
 	dispHTML("input", type="text", name="item-name")
 	dispHTML("p", contents="Quantity:", newLine=False)
@@ -105,7 +115,7 @@ if loggedIn:
 	# item controls
 	startTag("div", id="add-loc")
 	dispHTML("h3", contents="Add location")
-	startTag("form", id="add-loc-form", method="POST", action="/cgi-bin/ic/main.py")  # login form
+	startTag("form", id="add-loc-form", method="POST", action="main.py")  # login form
 	dispHTML("p", contents="Name:", newLine=False)
 	dispHTML("input", type="text", name="loc-name")
 	dispHTML("button", contents="submit")
@@ -120,6 +130,6 @@ endTag("div")  # end container
 
 
 # footer
-footer.showFooter()
+assets.showFooter()
 
 dataDump(locations)

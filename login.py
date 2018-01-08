@@ -1,10 +1,12 @@
 #!/usr/local/bin/python3
 #  ^^^ this is bad practice, DON'T do as I did!
+import cgi
 import cgitb  # debugging
+
+import assets
 import footer
 import header
-from htmlify import *
-import cgi
+from assets import dispHTML, endTag, startTag
 
 print("Content-Type: text/html;charset=utf-8")
 print()
@@ -14,13 +16,13 @@ cgitb.enable()  # enable debugging
 loggedIn = False
 
 # header
-header.showHeader()
+assets.showHeader()
 
 # content
 startTag("div", id="containter")  # start container
 dispHTML("h3", contents="Login")
 loginForm = cgi.FieldStorage()
-startTag("form", id="login-form", method="POST", action="/cgi-bin/ic/main.py")  # login form
+startTag("form", id="login-form", method="POST", action="main.py")  # login form
 dispHTML("p", contents="Password:", newLine=False)
 dispHTML("input", type="password", name="password")
 dispHTML("button", contents="submit")
@@ -32,4 +34,4 @@ if "password" not in loginForm:
 
 
 # footer
-footer.showFooter()
+assets.showFooter()

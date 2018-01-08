@@ -1,24 +1,25 @@
 #!/usr/local/bin/python3
 #  ^^^ this is bad practice, DON'T do as I did!
 import cgitb  # debugging
+
+import assets
 import footer
 import header
-from htmlify import *
-
+from assets import dispHTML, endTag, startTag
 
 print("Content-Type: text/html;charset=utf-8\n")
 print('<meta http-equiv="set-cookie" content="password="";>')
 cgitb.enable()  # enable debugging
-header.showHeader()
+assets.showHeader()
 
 # content
 startTag("div", id="container")  # start container
 dispHTML("h3", contents="Logout")
 dispHTML("p", contents="You have been logged out.")
 startTag("p")
-dispHTML("a", href="/cgi-bin/ic/main.py", contents="Return Home")
+dispHTML("a", href="main.py", contents="Return Home")
 endTag("div")  # end container
 
 
 # footer
-footer.showFooter()
+assets.showFooter()

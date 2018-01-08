@@ -1,18 +1,20 @@
 #!/usr/local/bin/python3
 #  ^^^ this is bad practice, DON'T do as I did!
-import header
-import footer
-from htmlify import *
 import cgi
 import cgitb
+
+import assets
+import footer
+import header
 from assets import *
+from assets import endTag, startTag
 
 print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()
 locations = getLocations()
 loggedIn = checkCookieLogin()
 localData = cgi.FieldStorage()
-header.showHeader(loggedIn=loggedIn)
+assets.showHeader(loggedIn=loggedIn)
 
 
 locationName = localData.getvalue("location")
@@ -56,15 +58,15 @@ if loggedIn and itemFound:
 		dispHTML("h3", contents="Success")
 		dispHTML("p", contents="Your item was deleted successfully.")
 		startTag("p")
-		dispHTML("a", href="/cgi-bin/ic/main.py", contents="Go Home")
+		dispHTML("a", href="main.py", contents="Go Home")
 		endTag("p")
 	elif "no" in localData:
 		dispHTML("h3", contents="Cancelled")
 		dispHTML("p", contents="If you are not redirected within a few seconds, please click here:")
 		startTag("p")
-		dispHTML("a", href="/cgi-bin/ic/main.py", contents="Go Home")
+		dispHTML("a", href="main.py", contents="Go Home")
 		endTag("p")
-		print("<meta http-equiv=\"refresh\" content=\"0;url=/cgi-bin/ic/main.py\">")  # go home
+		print("<meta http-equiv=\"refresh\" content=\"0;url=main.py\">")  # go home
 	else:
 		dispHTML("h3", contents="Please confirm")
 		dispHTML("p", contents="Are you sure you want to delete " + item.name + "?")
@@ -81,5 +83,5 @@ elif not loggedIn:
 	Once you have logged in you can paste it into your browser's address bar and, through the power of cookies, \
 	you will be logged in.")
 
-footer.showFooter()
+assets.showFooter()
 dataDump(locations)

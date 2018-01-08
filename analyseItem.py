@@ -1,18 +1,20 @@
 #!/usr/local/bin/python3
 #  ^^^ this is bad practice, DON'T do as I did!
-import header
-import footer
-from htmlify import *
 import cgi
 import cgitb
+
+import assets
+import footer
+import header
 from assets import *
+from assets import endTag, startTag
 
 print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()
 locations = getLocations()
 loggedIn = checkCookieLogin()
 localData = cgi.FieldStorage()
-header.showHeader(loggedIn=loggedIn)
+assets.showHeader(loggedIn=loggedIn)
 
 
 locationName = localData.getvalue("location")
@@ -71,7 +73,7 @@ if loggedIn and itemFound:
 	print("<p><b>Current user: </b>" + item.currentUser.name + " (" + item.currentUser.email + ")")
 	dispHTML("br")
 	startTag("p")
-	dispHTML("a", contents="Edit", href="/cgi-bin/ic/editItem.py?location=" + locationName + "&item=" + itemName)
+	dispHTML("a", contents="Edit", href="editItem.py?location=" + locationName + "&item=" + itemName)
 	endTag("p")
 elif not loggedIn:
 	dispHTML("h3", contents="Please login")
@@ -81,5 +83,5 @@ elif not loggedIn:
 	Once you have logged in you can paste it into your browser's address bar and, through the power of cookies, \
 	you will be logged in.")
 
-footer.showFooter()
+assets.showFooter()
 dataDump(locations)
