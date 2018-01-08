@@ -4,20 +4,16 @@ import cgi
 import cgitb
 
 import assets
-import footer
-import header
 from assets import *
 from assets import endTag, startTag
 
 print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()
 
-
 locations = getLocations()
 loggedIn = checkCookieLogin()
 localData = cgi.FieldStorage()
 assets.showHeader(loggedIn=loggedIn)
-
 
 locationName = localData.getvalue("location")
 missCounter = 0
@@ -84,6 +80,5 @@ elif not loggedIn:
 	dispHTML("p", contents="If you don't want to find this page again, please copy the link now. \
 	Once you have logged in you can paste it into your browser's address bar and, through the power of cookies, \
 	you will be logged in.")
-
 
 assets.showFooter()

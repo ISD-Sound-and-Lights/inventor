@@ -4,8 +4,6 @@ import cgi
 import cgitb  # debugging
 
 import assets
-import footer
-import header
 from assets import *
 from assets import dispHTML, endTag, startTag
 
@@ -27,7 +25,6 @@ except IndexError as e:
 	dispHTML("p", contents="Error in login: Config file incorrectly formatted!")
 	loggedIn = False
 
-
 # Add any items the user wanted last load
 itemAddName = dataForm.getvalue("item-name")
 itemAddQuant = dataForm.getvalue("item-quantity")
@@ -37,7 +34,7 @@ for loc in locations:
 		loc.items.append(Item(itemAddName, itemAddQuant))
 		dataDump(locations)
 		print("<meta http-equiv=\"refresh\" content=\"0;url=main.py\">")
-		# we reload so that if the user reloads it doesn't add another item
+	# we reload so that if the user reloads it doesn't add another item
 
 # And locations
 locAddName = dataForm.getvalue("loc-name")
@@ -51,11 +48,10 @@ if locAddName is not None:
 	if not addLocError:
 		locations.append(Location(locAddName))
 		print("<meta http-equiv=\"refresh\" content=\"0;url=main.py\">")
-		# we reload so that if the user reloads it doesn't add another location
+	# we reload so that if the user reloads it doesn't add another location
 
 # header
 assets.showHeader(loggedIn)
-
 
 # content
 startTag("div", id="containter")  # start container
@@ -68,12 +64,9 @@ if loggedIn:
 		itemNameDisplay = "<div class='dropdown'>"
 		itemNameDisplay += "<i class=\"fa fa-info\"></i>"
 		itemNameDisplay += "<div class='dropdown-content'>"
-		itemNameDisplay += "<a href=\"removeLocation.py?location=" + loc.name + "\">" \
-						   "<i class=\"fa fa-fw fa-trash\" aria-hidden=\"true\"> </i>Delete</a><br />"
-		itemNameDisplay += "<a href=\"editLocation.py?location=" + loc.name + "\">" \
-						   "<i class=\"fa fa-fw fa-pencil\" aria-hidden=\"true\"> </i>Edit</a><br />"
-		itemNameDisplay += "<a href=\"analyseLocation.py?location=" + loc.name + "\">" \
-						   "<i class=\"fa fa-fw fa-info\" aria-hidden=\"true\"> </i>Info</a><br />"
+		itemNameDisplay += "<a href=\"removeLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-trash\" aria-hidden=\"true\"> </i>Delete</a><br />"
+		itemNameDisplay += "<a href=\"editLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-pencil\" aria-hidden=\"true\"> </i>Edit</a><br />"
+		itemNameDisplay += "<a href=\"analyseLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-info\" aria-hidden=\"true\"> </i>Info</a><br />"
 		itemNameDisplay += "</div>"
 		itemNameDisplay += "</div>"
 		itemNameDisplay += "<span class=\"locListSeparator\" /> "
@@ -127,7 +120,6 @@ else:
 	dispHTML("p", contents="It was developed by the Sound and Lights programming team, and is open source.")
 	dispHTML("p", contents="Please login to continue.")
 endTag("div")  # end container
-
 
 # footer
 assets.showFooter()

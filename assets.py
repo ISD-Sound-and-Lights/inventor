@@ -1,6 +1,3 @@
-
-
-
 class Client:
 	def __init__(self, name, email="unset", department="unset"):
 		self.name = name
@@ -51,7 +48,6 @@ def authenticate(password):
 
 def dataDump(locations):
 	import pickle
-	import htmlify
 	try:
 		dataFile = open(".config/autosave.bin", "wb")
 		pickle.dump(locations, dataFile)
@@ -130,7 +126,7 @@ def showHeader(loggedIn=False):
 	endTag("head")
 	startTag("body")
 	# Title and menu
-	title = getHTML("h1", "inventor")  # title
+	title = getHTML("h1", "inventor")  #  title
 	menuItemHome = getHTML("li", contents=getHTML("a", contents="Home", href="main.py"))  # menu item 1 -- Home
 	menuItemHelp = getHTML("li", contents=getHTML("a", contents="Help", href="help"))  # menu item 2 -- Help
 	if not loggedIn:

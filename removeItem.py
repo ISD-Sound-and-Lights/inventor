@@ -4,8 +4,6 @@ import cgi
 import cgitb
 
 import assets
-import footer
-import header
 from assets import *
 from assets import endTag, startTag
 
@@ -15,7 +13,6 @@ locations = getLocations()
 loggedIn = checkCookieLogin()
 localData = cgi.FieldStorage()
 assets.showHeader(loggedIn=loggedIn)
-
 
 locationName = localData.getvalue("location")
 missCounter = 0

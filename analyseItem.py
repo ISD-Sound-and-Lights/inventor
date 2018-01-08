@@ -4,8 +4,6 @@ import cgi
 import cgitb
 
 import assets
-import footer
-import header
 from assets import *
 from assets import endTag, startTag
 
@@ -15,7 +13,6 @@ locations = getLocations()
 loggedIn = checkCookieLogin()
 localData = cgi.FieldStorage()
 assets.showHeader(loggedIn=loggedIn)
-
 
 locationName = localData.getvalue("location")
 missCounter = 0
@@ -45,7 +42,8 @@ else:
 	if missCounter >= len(location.items):
 		dispHTML("h3", contents="Error")
 		dispHTML("p", contents="Item '" + str(itemName) + "' not found.")
-		dispHTML("p", contents="If you just changed its location, go to the Home page and click the 'info' button to view it.")
+		dispHTML("p",
+				 contents="If you just changed its location, go to the Home page and click the 'info' button to view it.")
 
 if loggedIn and itemFound:
 	setName = localData.getvalue("setName")
