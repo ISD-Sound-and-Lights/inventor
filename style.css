@@ -1,0 +1,70 @@
+#itemlist {
+	width: 300px;
+	max-width: 300px;
+	height:300px;
+	overflow: auto;
+	border: solid 0.5px;
+	padding:1%;
+}
+
+#itemlist p {
+	text-indent: 5px;
+}
+
+#add-item {
+	display: inline-block;
+	margin-left: 2em;
+	vertical-align: top;
+}
+
+#add-loc {
+	display: inline-block;
+	margin-left: 2em;
+	vertical-align: top;
+}
+
+#items {
+	display: inline-block;
+}
+
+span.itemListSeparator {
+	margin-left: 25px;
+}
+
+span.locListSeparator {
+	margin-left: 10px;
+}
+
+span.itemListIndent {
+	margin-left: 20px;
+}
+
+.fa-trash {
+	color: red;
+}
+
+.fa-info {
+	color: dodgerblue;
+}
+
+.fa-pencil {
+	color: DarkOrange;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: lightgray;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
