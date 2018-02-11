@@ -62,11 +62,11 @@ if loggedIn:
 	startTag("div", id="itemlist")
 	for loc in locations:
 		itemNameDisplay = "<div class='dropdown'>"
-		itemNameDisplay += "<i class=\"fa fa-info\"></i>"
+		itemNameDisplay += "<i class=\"fa fa-info\">i</i>"
 		itemNameDisplay += "<div class='dropdown-content'>"
-		itemNameDisplay += "<a href=\"removeLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-trash\" aria-hidden=\"true\"> </i>Delete</a><br />"
-		itemNameDisplay += "<a href=\"editLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-pencil\" aria-hidden=\"true\"> </i>Edit</a><br />"
-		itemNameDisplay += "<a href=\"analyseLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-info\" aria-hidden=\"true\"> </i>Info</a><br />"
+		itemNameDisplay += "<a href=\"removeLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-trash\" aria-hidden=\"true\">d</i>Delete</a><br />"
+		itemNameDisplay += "<a href=\"editLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-pencil\" aria-hidden=\"true\">e</i>Edit</a><br />"
+		itemNameDisplay += "<a href=\"analyseLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-info\" aria-hidden=\"true\">i</i>Info</a><br />"
 		itemNameDisplay += "</div>"
 		itemNameDisplay += "</div>"
 		itemNameDisplay += "<span class=\"locListSeparator\" /> "

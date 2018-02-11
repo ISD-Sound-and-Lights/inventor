@@ -52,7 +52,8 @@ def dataDump(locations):
 		dataFile = open(".config/autosave.bin", "wb")
 		pickle.dump(locations, dataFile)
 		dataFile.close()
-	except (FileNotFoundError, PermissionError):
+	except (FileNotFoundError, PermissionError) as e:
+		print(e)
 		dispHTML("p", contents="Error in save:  Save file incorrectly configured!")
 
 
@@ -121,7 +122,7 @@ def showHeader(loggedIn=False):
 	# head
 	startTag("head")
 	dispHTML("script", src="https://use.fontawesome.com/344eca865b.js")
-	dispHTML("link", href="style.css", type="text/css", rel="stylesheet")
+	dispHTML("link", href="assets/css/style.css", type="text/css", rel="stylesheet")
 	endTag("head")
 	startTag("body")
 	# Title and menu
