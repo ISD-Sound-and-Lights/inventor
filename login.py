@@ -1,8 +1,8 @@
 #!/usr/local/bin/python3
 #  ^^^ this is bad practice, DON'T do as I did!
 import cgi
-import cgitb  # debugging
-from assets import *
+import cgitb
+from pyassets import *
 
 print("Content-Type: text/html;charset=utf-8")
 print()

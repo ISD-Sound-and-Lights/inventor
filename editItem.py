@@ -2,7 +2,7 @@
 #  ^^^ this is bad practice, DON'T do as I did!
 import cgi
 import cgitb
-from assets import *
+from pyassets import *
 
 print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()

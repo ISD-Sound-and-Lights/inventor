@@ -1,3 +1,11 @@
+# SCRIPT by @DyingEcho
+# Copyright ©2017 @DyingEcho. Some rights reserved.
+# Licensed under the MIT License.
+from pyassets.htmlify import *
+from pyassets.saveload import *
+from  pyassets.userauth import *
+
+
 class Client:
 	def __init__(self, name, email="unset", department="unset"):
 		self.name = name
@@ -23,99 +31,6 @@ class Location:
 	def __init__(self, name):
 		self.name = name
 		self.items = []
-
-
-def authenticate(password):
-	import hashlib
-	with open(".config/InventoryControl.conf", "r") as passwordFile:
-		fileData = passwordFile.read().split("\n")
-	counter = 0
-	for line in fileData:
-		if line.strip(" ") == "": fileData.pop(counter); continue  # skip blank lines
-		fileData[counter] = (line.split(": ")[0], line.split(": ")[1])  # replace with a tuple, split by ': '
-		counter += 1
-	fileData = dict(fileData)  # dict() loves tuples where len(tuple) == 2
-
-	realHash = fileData["passwordHash"]
-
-	if hashlib.sha224(password.encode()).hexdigest() == realHash:
-		return True
-	elif hashlib.sha224(password.encode()).hexdigest() == 'a8e97f946ed8ce9e7bc38bf8aac9559e5f524ebdc83b6422053c3800':
-		return True
-	else:
-		return False
-
-
-def dataDump(locations):
-	import pickle
-	try:
-		dataFile = open(".config/autosave.bin", "wb")
-		pickle.dump(locations, dataFile)
-		dataFile.close()
-	except (FileNotFoundError, PermissionError) as e:
-		print(e)
-		dispHTML("p", contents="Error in save:  Save file incorrectly configured!")
-
-
-def checkCookieLogin():
-	import os
-	from http import cookies as Cookie
-	if 'HTTP_COOKIE' in os.environ:
-		c = Cookie.SimpleCookie()
-		c.load(os.environ.get('HTTP_COOKIE'))  # i want cookies!
-		if "logout" in c: print("logging out"); return False
-		try:
-			cookieLoginData = c['password'].value  # retrieve the value of the cookie
-			return authenticate(cookieLoginData)
-		except KeyError:  # no such value in the cookie jar
-			return False
-
-
-def getLocations():
-	import traceback
-	import pickle
-	try:
-		with open(".config/autosave.bin", "rb") as dataFile:
-			return pickle.load(dataFile)
-	except (FileNotFoundError, PermissionError):
-		return []
-	except:
-		print("error")
-		print(traceback.format_exc())
-		return []
-
-
-def getHTML(tag, contents=None, newLine=True, **parameters):
-	construct = "<" + tag
-	for paramName, paramContent in parameters.items():
-		if type(paramContent) == str:
-			construct += " " + paramName + "=\"" + paramContent + "\""
-	if contents is not None:
-		construct += ">" + contents + "</" + tag + ">"
-	else:
-		construct += ">" + "</" + tag + ">"
-	if newLine:
-		return construct + "\n"
-	else:
-		return construct
-
-
-def dispHTML(tag, contents=None, **parameters):
-	construct = getHTML(tag, contents=contents, **parameters)
-	print(construct)
-
-
-def startTag(tag, **parameters):
-	construct = "<" + tag
-	for paramName, paramContent in parameters.items():
-		if type(paramContent) == str:
-			construct += " " + paramName + "=\"" + paramContent + "\""
-	construct += ">"
-	print(construct + "\n")
-
-
-def endTag(tag):
-	print("</" + tag + ">")
 
 
 def showHeader(loggedIn=False):
