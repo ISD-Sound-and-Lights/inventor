@@ -2,17 +2,14 @@
 #  ^^^ this is bad practice, DON'T do as I did!
 import cgi
 import cgitb
-
-import assets
 from assets import *
-from assets import endTag, startTag
 
 print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()
 locations = getLocations()
 loggedIn = checkCookieLogin()
 localData = cgi.FieldStorage()
-assets.showHeader(loggedIn=loggedIn)
+showHeader(loggedIn=loggedIn)
 
 locationName = localData.getvalue("location")
 missCounter = 0
@@ -43,7 +40,7 @@ else:
 		dispHTML("h3", contents="Error")
 		dispHTML("p", contents="Item '" + str(itemName) + "' not found.")
 		dispHTML("p",
-				 contents="If you just changed its location, go to the Home page and click the 'info' button to view it.")
+				contents="If you just changed its location, go to the Home page and click the 'info' button to view it.")
 
 if loggedIn and itemFound:
 	setName = localData.getvalue("setName")
@@ -81,5 +78,5 @@ elif not loggedIn:
 	Once you have logged in you can paste it into your browser's address bar and, through the power of cookies, \
 	you will be logged in.")
 
-assets.showFooter()
+showFooter()
 dataDump(locations)

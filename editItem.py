@@ -2,10 +2,7 @@
 #  ^^^ this is bad practice, DON'T do as I did!
 import cgi
 import cgitb
-
-import assets
 from assets import *
-from assets import endTag, startTag
 
 print("Content-Type: text/html;charset=utf-8\n")
 cgitb.enable()
@@ -13,7 +10,7 @@ cgitb.enable()
 locations = getLocations()
 loggedIn = checkCookieLogin()
 localData = cgi.FieldStorage()
-assets.showHeader(loggedIn=loggedIn)
+showHeader(loggedIn=loggedIn)
 
 locationName = localData.getvalue("location")
 missCounter = 0
@@ -81,4 +78,4 @@ elif not loggedIn:
 	Once you have logged in you can paste it into your browser's address bar and, through the power of cookies, \
 	you will be logged in.")
 
-assets.showFooter()
+showFooter()

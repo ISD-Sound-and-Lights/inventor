@@ -122,7 +122,7 @@ def showHeader(loggedIn=False):
 	# head
 	startTag("head")
 	dispHTML("script", src="https://use.fontawesome.com/344eca865b.js")
-	dispHTML("link", href="assets/css/style.css", type="text/css", rel="stylesheet")
+	dispHTML("link", href="webassets/css/style.css", type="text/css", rel="stylesheet")
 	endTag("head")
 	startTag("body")
 	# Title and menu

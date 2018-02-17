@@ -1,14 +1,12 @@
 #!/usr/local/bin/python3
 #  ^^^ this is bad practice, DON'T do as I did!
 import cgitb  # debugging
-
-import assets
-from assets import dispHTML, endTag, startTag
+from assets import *
 
 print("Content-Type: text/html;charset=utf-8\n")
 print('<meta http-equiv="set-cookie" content="password="";>')
 cgitb.enable()  # enable debugging
-assets.showHeader()
+showHeader()
 
 # content
 startTag("div", id="container")  # start container
@@ -19,4 +17,4 @@ dispHTML("a", href="main.py", contents="Return Home")
 endTag("div")  # end container
 
 # footer
-assets.showFooter()
+showFooter()
