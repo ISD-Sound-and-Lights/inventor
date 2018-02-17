@@ -36,7 +36,7 @@ if loggedIn:
 		itemNameDisplay = "<div class='dropdown'>"
 		itemNameDisplay += "<i class=\"fa fa-info\"></i>"
 		itemNameDisplay += "<div class='dropdown-content'>"
-		itemNameDisplay += "<a href=\"removeLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-trash\" aria-hidden=\"true\"></i>Delete</a><br />"
+		itemNameDisplay += "<a href=\"modify.py?action=remove&location=" + loc.name + "\"><i class=\"fa fa-fw fa-trash\" aria-hidden=\"true\"></i>Delete</a><br />"
 		itemNameDisplay += "<a href=\"editLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-pencil\" aria-hidden=\"true\"></i>Edit</a><br />"
 		itemNameDisplay += "<a href=\"analyseLocation.py?location=" + loc.name + "\"><i class=\"fa fa-fw fa-info\" aria-hidden=\"true\"></i>Info</a><br />"
 		itemNameDisplay += "</div>"
@@ -62,13 +62,13 @@ if loggedIn:
 	# item controls
 	startTag("div", id="add-item")
 	dispHTML("h3", contents="Add item")
-	startTag("form", id="add-item-form", method="POST", action="main.py")  # login form
+	startTag("form", id="add-item-form", method="POST", action="modifyItem.py?action=create")  # login form
 	dispHTML("p", contents="Name:", newLine=False)
-	dispHTML("input", type="text", name="item-name")
+	dispHTML("input", type="text", name="name")
 	dispHTML("p", contents="Quantity:", newLine=False)
-	dispHTML("input", type="number", name="item-quantity", min="1")
+	dispHTML("input", type="number", name="quantity", min="1")
 	dispHTML("br")
-	startTag("select", name="item-loc")
+	startTag("select", name="location")
 	dispHTML("option", value="", disabled="disabled", selected="selected", contents="Location")
 	for loc in locations:
 		dispHTML("option", value=loc.name, contents=loc.name)

@@ -55,10 +55,10 @@ elif action == "modify":
 
 elif action == "delete":
 	for loc in locations:
-		if loc.name == location:
+		if loc.name == location:  # location match
 			counter = 0
 			for item in loc.items:
-				if item.name == name:
+				if item.name == name:  # item match
 					del loc.items[counter]
 
 

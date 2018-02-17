@@ -39,22 +39,22 @@ else:
 
 if loggedIn and itemFound:
 	dispHTML("h3", contents=item.name)
-	startTag("form", method="post", action="analyseItem.py?location=" + location.name + "&item=" + item.name)
+	startTag("form", method="post", action="modifyItem.py?action=modify&location=" + location.name + "&item=" + item.name)
 	dispHTML("b", contents="Name:")
-	dispHTML("input", type="text", name="setName", value=item.name)
+	dispHTML("input", type="text", name="newName", value=item.name)
 	dispHTML("br")
 	dispHTML("b", contents="Quantity:")
-	dispHTML("input", type="number", name="setQuant", value=str(item.quantity))
+	dispHTML("input", type="number", name="NewQuantity", value=str(item.quantity))
 	dispHTML("br")
 	dispHTML("b", contents="Location:")
-	startTag("select", name="setLoc")
+	startTag("select", name="newLocation")
 	dispHTML("option", value="", disabled="disabled", selected="selected", contents=location.name)
 	for loc in locations:
 		dispHTML("option", value=loc.name, contents=loc.name)
 	endTag("select")
 	dispHTML("br")
 	dispHTML("b", contents="Owner:")
-	startTag("select", name="setOwner")
+	startTag("select", name="newOwner")
 	dispHTML("option", value="", disabled="disabled", selected="selected", contents=item.owner.name)
 	users = []  # TEMPORARY
 	for user in users:
@@ -62,7 +62,7 @@ if loggedIn and itemFound:
 	endTag("select")
 	dispHTML("br")
 	dispHTML("b", contents="Current user:")
-	startTag("select", name="setCurrentUser")
+	startTag("select", name="newCurrentUser")
 	dispHTML("option", value="", disabled="disabled", selected="selected", contents=item.currentUser.name)
 	for user in users:
 		dispHTML("option", value=user.name, contents=user.name)
