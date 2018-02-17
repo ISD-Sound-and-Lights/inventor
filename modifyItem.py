@@ -35,24 +35,31 @@ elif action == "modify":
 	newOwner = dataForm.getvalue("newOwner")
 	newCurrentUser = dataForm.getvalue("newCurrentUser")
 	doModify = True  # we will set this to false if we get an error
-	item = getItem(locations, name, location=location, returnLocation=True)  # get (item_object, location_name)
-	location = item[1]  # location name
-	item = item[0]  # item object (not name!)
+	item = getItem(locations, name, location=location)
 
 	item.name = newName
 	item.quantity = newQuantity
 	# we won't change owner or current user, because they have not been implemented
 
 	# man who change item location, accomplish anything!
-	for location in locations:
-		if location.name == newLocation:
-			location.items.append(item)
-		if location.name == location:
+	for loc in locations:
+		if loc.name == newLocation:
+			loc.items.append(item)
+		if loc.name == location:
 			counter = 0
-			for item in location.items:
+			for item in loc.items:
 				if item.name == name:
-					del location.items[counter]
+					del loc.items[counter]
 	# beginner luck...
+
+
+elif action == "delete":
+	for loc in locations:
+		if loc.name == location:
+			counter = 0
+			for item in loc.items:
+				if item.name == name:
+					del loc.items[counter]
 
 
 dataDump(locations)
