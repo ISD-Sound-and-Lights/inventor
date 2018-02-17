@@ -46,6 +46,30 @@ def getItem(locations, name, location=None, returnLocation=False):
 					return (item, loc.name) if returnLocation else item
 
 
+def showContentHeader():
+	print("Content-Type: text/html;charset=utf-8\n")
+
+
+def redirect(address):
+	print("""
+		<!DOCTYPE HTML>
+		<html lang="en-US">
+			<head>
+				<meta charset="UTF-8">
+				<meta http-equiv="refresh" content="0; url={}">
+				<script type="text/javascript">
+					window.location.href = "{}"
+				</script>
+				<title>Page Redirection</title>
+			</head>
+			<body>
+				<!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
+				If you are not redirected automatically, follow this <a href='{}'>link</a>.
+			</body>
+		</html>
+	""".format(address, address, address))
+
+
 def showHeader(loggedIn=False):
 	# head
 	startTag("head")

@@ -1,7 +1,9 @@
+#!/usr/local/bin/python3
 import cgi
 import cgitb
 from pyassets import *
 
+showContentHeader()
 cgitb.enable()  # enable debugging
 dataForm = cgi.FieldStorage()
 locations = getLocations()
@@ -54,3 +56,4 @@ elif action == "modify":
 
 
 dataDump(locations)
+redirect("main.py")

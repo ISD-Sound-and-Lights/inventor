@@ -4,7 +4,7 @@ import cgi
 import cgitb
 from pyassets import *
 
-print("Content-Type: text/html;charset=utf-8\n")
+showContentHeader()
 cgitb.enable()
 
 locations = getLocations()
