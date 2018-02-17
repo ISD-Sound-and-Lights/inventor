@@ -22,34 +22,6 @@ except IndexError as e:
 	dispHTML("p", contents="Error in login: Config file incorrectly formatted!")
 	loggedIn = False
 
-# Add any items the user wanted last load
-itemAddName = dataForm.getvalue("item-name")
-itemAddQuant = dataForm.getvalue("item-quantity")
-itemAddLoc = dataForm.getvalue("item-loc")
-doAdd = True
-for loc in locations:
-	for item in loc.items:
-		if item.name == itemAddName: dispHTML("h3", contents="You can't add an item with a pre-existing name."); doAdd = False
-	if loc.name == itemAddLoc and doAdd:
-		loc.items.append(Item(itemAddName, itemAddQuant))
-		dataDump(locations)
-		print("<meta http-equiv=\"refresh\" content=\"0;url=main.py\">")
-	# we reload so that if the user reloads it doesn't add another item
-
-# And locations
-locAddName = dataForm.getvalue("loc-name")
-if locAddName is not None:
-	addLocError = False
-	for loc in locations:
-		if loc.name == locAddName:
-			dispHTML("h3", contents="Error")
-			dispHTML("p", contents="You can't add a location with a name the same as one that exists already")
-			addLocError = True
-	if not addLocError:
-		locations.append(Location(locAddName))
-		print("<meta http-equiv=\"refresh\" content=\"0;url=main.py\">")
-	# we reload so that if the user reloads it doesn't add another location
-
 # header
 showHeader(loggedIn)
 
