@@ -33,6 +33,19 @@ class Location:
 		self.items = []
 
 
+def getItem(locations, name, location=None, returnLocation=False):
+	for loc in locations:
+		if location is not None:  # location name is not needed, but makes it faster
+			if loc.name == location:
+				for item in loc.items:
+					if item.name == name:
+						return (item, loc.name) if returnLocation else item
+		else:
+			for item in loc.items:
+				if item.name == name:
+					return (item, loc.name) if returnLocation else item
+
+
 def showHeader(loggedIn=False):
 	# head
 	startTag("head")
