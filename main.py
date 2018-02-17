@@ -26,8 +26,11 @@ except IndexError as e:
 itemAddName = dataForm.getvalue("item-name")
 itemAddQuant = dataForm.getvalue("item-quantity")
 itemAddLoc = dataForm.getvalue("item-loc")
+doAdd = True
 for loc in locations:
-	if loc.name == itemAddLoc:
+	for item in loc.items:
+		if item.name == itemAddName: dispHTML("h3", contents="You can't add an item with a pre-existing name."); doAdd = False
+	if loc.name == itemAddLoc and doAdd:
 		loc.items.append(Item(itemAddName, itemAddQuant))
 		dataDump(locations)
 		print("<meta http-equiv=\"refresh\" content=\"0;url=main.py\">")
